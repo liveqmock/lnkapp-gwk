@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="/workspace/git-linking/lib/ojdbc6.jar"/>
+
+    <!--信息 -->
+    <context id="AllInfo" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+                        connectionURL="jdbc:oracle:thin:@localhost:1521:orcl"
+                        userId="gwk"
+                        accredit_code="gwk">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="org.fbi.gwk.repository.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="org.fbi.gwk.repository.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="org.fbi.gwk.repository.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+        <table schema="gwk" tableName="cp_sequence" />
+        <table schema="gwk" tableName="ls_bdgagency" />
+        <table schema="gwk" tableName="ls_bdgagency_h" />
+        <table schema="gwk" tableName="ls_cardbaseinfo" />
+        <table schema="gwk" tableName="ls_cardstatus" />
+        <table schema="gwk" tableName="ls_consumeinfo" />
+        <table schema="gwk" tableName="ls_paybackinfo" />
+        <table schema="gwk" tableName="ls_personalinfo" />
+        <table schema="gwk" tableName="ls_sysinfo" />
+        <table schema="gwk" tableName="ls_taskinfo" />
+        <table schema="gwk" tableName="odsb_crd_crt" />
+        <table schema="gwk" tableName="odsb_crd_crt_acct" />
+        <table schema="gwk" tableName="odsb_crd_crt_trad" />
+
+    </context>
+</generatorConfiguration>
