@@ -15,21 +15,27 @@ import java.util.List;
  */
 public class HdMessageDecoder extends ByteToMessageDecoder {
     private static final Logger logger = LoggerFactory.getLogger(HdMessageDecoder.class);
+    private static int MSG_LEN = 8;
+
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
 
-        if (in.readableBytes() < 6) {
+        //1.处理粘包
+        if (in.readableBytes() < MSG_LEN) {
             return;
         }
 
-        byte[] lengthBuffer = new byte[6];
-        in.readBytes(lengthBuffer);
+        byte[] lengthBuf = new byte[MSG_LEN];
 
-        int dataLength = Integer.parseInt(new String(lengthBuffer).trim());
+        int readerIndex = in.readerIndex();
+        in.getBytes(readerIndex, lengthBuf);  //getbytes()不移动index       //in.readBytes(lengthBuf);
+
+        int dataLength = Integer.parseInt(new String(lengthBuf).trim());
         if (in.readableBytes() < dataLength) {
             return;
         }
 
+        //2.获取整个报文
         byte[] decoded = new byte[dataLength];
         in.readBytes(decoded);
         String msg = null;
