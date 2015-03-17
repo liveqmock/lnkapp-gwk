@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
+import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -31,11 +29,13 @@ public class TpsSocketClient {
         this.port = port;
     }
 
-    /**
-     * @throws Exception 其中：SocketTimeoutException为超时异常
-     */
-    public byte[] call(byte[] sendbuf) throws Exception {
-        InetAddress addr = InetAddress.getByName(ip);
+    public byte[] call(byte[] sendbuf)  {
+        InetAddress addr = null;
+        try {
+            addr = InetAddress.getByName(ip);
+        } catch (UnknownHostException e) {
+            throw new RuntimeException("第三方服务器地址错误");
+        }
         Socket socket = new Socket();
         try {
             socket.connect(new InetSocketAddress(addr, port), timeout);
@@ -58,7 +58,11 @@ public class TpsSocketClient {
             byte[] recvbuf = new byte[msgLen];
 
             //连接不稳定时 需延时一定时间
-            Thread.sleep(100);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                //
+            }
 
             readNum = is.read(recvbuf, 8, msgLen - 8);   //阻塞读
             if (readNum != msgLen) {
@@ -68,6 +72,10 @@ public class TpsSocketClient {
             //合并buffer
             System.arraycopy(lenbuf, 0, recvbuf, 0, lenbuf.length);
             return recvbuf;
+        } catch (SocketTimeoutException e1) {
+            throw new RuntimeException("连接超时", e1);
+        } catch (IOException e2) {
+            throw new RuntimeException("通讯异常", e2);
         } finally {
             try {
                 socket.close();
@@ -100,8 +108,8 @@ public class TpsSocketClient {
         msgCommHeader.setAuthoCodeLen("" + authoCodeLen);
 
 
-        final int headerLen = MsgCommHeader.getMsgHeaderLength();
-        int msgLen = bizMsgLen + authoCodeLen + headerLen;
+        int headerLen = msgCommHeader.getMsgHeaderLength();
+        int msgLen = bizMsgLen  + headerLen;
         msgCommHeader.setMsgLen("" + msgLen);
 
         String headerStr = msgCommHeader.marshal(); //已包括授权码

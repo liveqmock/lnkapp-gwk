@@ -203,7 +203,7 @@ public class MsgCommHeader {
         this.authoCode = authoCode;
     }
 
-    public static int getMsgHeaderLength() {
-        return MSG_HEADER_LENGTH;
+    public  int getMsgHeaderLength() {
+        return MSG_HEADER_LENGTH + Integer.parseInt(getAuthoCodeLen());
     }
 }
