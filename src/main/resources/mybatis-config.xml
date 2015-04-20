@@ -13,24 +13,24 @@
                 <property name="driver" value="${ConnectionManager.driver}"/>
                 <property name="url" value="${ConnectionManager.connection}"/>
                 <property name="username" value="${ConnectionManager.user}"/>
-                <property name="accredit_code" value="${ConnectionManager.accredit_code}"/>
+                <property name="password" value="${ConnectionManager.password}"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
-        <mapper resource="org/fbi/gwk/repository/mapper/CpSequenceMapper.xml"/>
-        <mapper resource="org/fbi/gwk/repository/mapper/LsBdgagencyMapper.xml"/>
-        <mapper resource="org/fbi/gwk/repository/mapper/LsBdgagencyHMapper.xml"/>
-        <mapper resource="org/fbi/gwk/repository/mapper/LsCardbaseinfoMapper.xml"/>
-        <mapper resource="org/fbi/gwk/repository/mapper/LsCardstatusMapper.xml"/>
-        <mapper resource="org/fbi/gwk/repository/mapper/LsConsumeinfoMapper.xml"/>
-        <mapper resource="org/fbi/gwk/repository/mapper/LsPaybackinfoMapper.xml"/>
-        <mapper resource="org/fbi/gwk/repository/mapper/LsPersonalinfoMapper.xml"/>
-        <mapper resource="org/fbi/gwk/repository/mapper/LsSysinfoMapper.xml"/>
-        <mapper resource="org/fbi/gwk/repository/mapper/LsTaskinfoMapper.xml"/>
-        <mapper resource="org/fbi/gwk/repository/mapper/OdsbCrdCrtAcctMapper.xml"/>
-        <mapper resource="org/fbi/gwk/repository/mapper/OdsbCrdCrtMapper.xml"/>
-        <mapper resource="org/fbi/gwk/repository/mapper/OdsbCrdCrtTradMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/CpSequenceMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/LsBdgagencyMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/LsBdgagencyHMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/LsCardbaseinfoMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/LsCardstatusMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/LsConsumeinfoMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/LsPaybackinfoMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/LsPersonalinfoMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/LsSysinfoMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/LsTaskinfoMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/OdsbCrdCrtAcctMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/OdsbCrdCrtMapper.xml"/>
+        <mapper resource="org/fbi/gwk/repository/mapper/gwk/OdsbCrdCrtTradMapper.xml"/>
     </mappers>
 
 </configuration>

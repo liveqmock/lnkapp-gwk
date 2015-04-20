@@ -1,3 +1,8 @@
+import org.fbi.gwk.domain.tps.SingleRecordMsg;
+import org.fbi.gwk.domain.tps.record.Record1101;
+import org.fbi.gwk.domain.tps.record.Record2102;
+import org.fbi.gwk.processor.TpsContext;
+
 import java.io.*;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
@@ -127,6 +132,29 @@ public class SocketClient {
         return header + body;
     }
 
+    private String get1101(){
+        SingleRecordMsg tpsTia = new SingleRecordMsg();
+        Record1101 record1101 = new Record1101();
+        record1101.setCard_no("6283660033405313"); //TODO
+        record1101.setSerial_no("111");
+        record1101.setConsume_datetime("2012-08-21");
+        record1101.setConsume_datetimee("2012-09-16");
+        record1101.setOriginal_amount("2055.00");
+        record1101.setDownload_type("1");
+        record1101.setEn_code("GBK");
+        record1101.setReg_code("1");
+        record1101.setPack_no("1");
+        record1101.setChild_pack_no("2");
+        tpsTia.getBody().getRecords().add(record1101);
+        String reqXml = tpsTia.toXml(tpsTia);
+
+
+        TpsContext tpsContext = new TpsContext();
+        tpsContext.setTpsTiaTxnCode("2102");
+        tpsContext.setTpsTiaXml(reqXml);
+        return reqXml;
+    }
+
 
     public static void main(String... argv) throws UnsupportedEncodingException, InterruptedException {
         Thread.sleep(3000);
@@ -157,10 +185,11 @@ public class SocketClient {
 */
         //client.getTxnFile();
         client.ip = "127.0.0.1";
-        client.port = 60006;
+        client.port = 8066;
         client.txnCode = "1000";
 
-        String message = client.getRequestMsg1020();
+//        String message = client.getRequestMsg1020();
+        String message = client.get1101();
         System.out.printf("===ÇëÇó±¨ÎÄ:%s\n", message);
 
         int len = message.getBytes("GBK").length;

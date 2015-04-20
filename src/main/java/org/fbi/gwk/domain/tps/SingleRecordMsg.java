@@ -18,6 +18,7 @@ import java.util.List;
         "body",
         "signs",
 })
+@XStreamAlias("Root")
 public class SingleRecordMsg extends TpsMsg {
     @XStreamAlias("Body")
     private Body body=new Body();

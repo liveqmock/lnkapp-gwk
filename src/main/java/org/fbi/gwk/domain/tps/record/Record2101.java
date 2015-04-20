@@ -12,7 +12,7 @@ public class Record2101 extends TpsMsgBodyBatchRecord {
     private String serial_no = "";
     private String card_no = "";
     private String card_holder = "";
-    private String original_money = "";
+    private String original_amount = "";
     private String merchant_name = "";
     private String transaction_addr = "";
     private String bank_code = "";
@@ -56,12 +56,12 @@ public class Record2101 extends TpsMsgBodyBatchRecord {
         this.card_holder = card_holder;
     }
 
-    public String getOriginal_money() {
-        return original_money;
+    public String getOriginal_amount() {
+        return original_amount;
     }
 
-    public void setOriginal_money(String original_money) {
-        this.original_money = original_money;
+    public void setOriginal_amount(String original_amount) {
+        this.original_amount = original_amount;
     }
 
     public String getMerchant_name() {
@@ -151,7 +151,7 @@ public class Record2101 extends TpsMsgBodyBatchRecord {
                 ", serial_no='" + serial_no + '\'' +
                 ", card_no='" + card_no + '\'' +
                 ", card_holder='" + card_holder + '\'' +
-                ", original_money='" + original_money + '\'' +
+                ", original_amount='" + original_amount + '\'' +
                 ", merchant_name='" + merchant_name + '\'' +
                 ", transaction_addr='" + transaction_addr + '\'' +
                 ", bank_code='" + bank_code + '\'' +

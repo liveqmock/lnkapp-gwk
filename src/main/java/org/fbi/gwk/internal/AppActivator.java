@@ -23,9 +23,7 @@ public class AppActivator implements BundleActivator {
 
     public void start(BundleContext context) {
         AppActivator.context = context;
-
         startServer();
-
         ProcessorFactory factory = new ProcessorFactory();
         Dictionary<String, Object> properties = new Hashtable<String, Object>();
         properties.put("APPID", "CCBGWK");
