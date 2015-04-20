@@ -73,5 +73,4 @@ public class SingleRecordMsg extends TpsMsg {
         System.out.println(msgBean);
 
     }
-
 }
