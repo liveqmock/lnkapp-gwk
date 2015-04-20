@@ -7,6 +7,7 @@ import org.fbi.linking.codec.dataformat.annotation.SeperatedTextMessage;
 public class CbsTia1000 {
     @DataField(seq = 1)
     private String areaCode;
+    @DataField(seq = 2)
     private String vchNo;
 
     public String getAreaCode() {

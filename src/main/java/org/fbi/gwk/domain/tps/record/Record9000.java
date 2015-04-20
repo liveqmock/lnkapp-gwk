@@ -8,18 +8,18 @@ import org.fbi.gwk.domain.tps.base.TpsMsgBodyBatchRecord;
  */
 @XStreamAlias("Record")
 public class Record9000 extends TpsMsgBodyBatchRecord {
-    private String ori_datatype = "";
+    private String ori_datatype_code = "";
     private String ori_send_orgcode = "";
     private String ori_entrust_date = "";
     private String result = "";
     private String add_word = "";
 
-    public String getOri_datatype() {
-        return ori_datatype;
+    public String getOri_datatype_code() {
+        return ori_datatype_code;
     }
 
-    public void setOri_datatype(String ori_datatype) {
-        this.ori_datatype = ori_datatype;
+    public void setOri_datatype_code(String ori_datatype_code) {
+        this.ori_datatype_code = ori_datatype_code;
     }
 
     public String getOri_send_orgcode() {
@@ -57,7 +57,7 @@ public class Record9000 extends TpsMsgBodyBatchRecord {
     @Override
     public String toString() {
         return "\n\t\tRecord9000{" +
-                "ori_datatype='" + ori_datatype + '\'' +
+                "ori_datatype='" + ori_datatype_code + '\'' +
                 ", ori_send_orgcode='" + ori_send_orgcode + '\'' +
                 ", ori_entrust_date='" + ori_entrust_date + '\'' +
                 ", result='" + result + '\'' +

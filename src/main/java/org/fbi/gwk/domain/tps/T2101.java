@@ -84,7 +84,7 @@ public class T2101 extends TpsMsg {
 
         //TODO 参看1101报文内容
         Record9000 record9000 = new Record9000();
-        record9000.setOri_datatype("1101");
+        record9000.setOri_datatype_code("1101");
         record9000.setOri_send_orgcode("CZJ");
         record9000.setOri_entrust_date("000000");//TODO 原委托日期等于请求workdate
         record9000.setResult("111"); //TODO 错误返回码等于正常报文返回编码+流水号

@@ -30,6 +30,29 @@ import java.util.Properties;
  */
 public abstract class AbstractTxnProcessor extends Stdp10Processor {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+    public String src = "";
+    public String des = "";
+    public String authCode = "";
+    public String bankCode="";
+    public String bankName = "";
+    public String payeeSumAccount = "";
+    public String payeeSumName = "";
+    public String payeeRgCode = "";
+    public String userCode = "";
+    public String password = "";
+
+    public AbstractTxnProcessor(){
+        this.src = ProjectConfigManager.getInstance().getProperty("tps.txn.login.src");
+        this.des = ProjectConfigManager.getInstance().getProperty("tps.txn.login.des");
+        this.authCode = ProjectConfigManager.getInstance().getProperty("authCode");
+        this.bankCode = ProjectConfigManager.getInstance().getProperty("bankCode");
+        this.bankName = ProjectConfigManager.getInstance().getProperty("bankName");
+        this.payeeSumAccount = ProjectConfigManager.getInstance().getProperty("payeeSumAccount");
+        this.payeeSumName = ProjectConfigManager.getInstance().getProperty("payeeSumName");
+        this.payeeRgCode = ProjectConfigManager.getInstance().getProperty("payeeRgCode");
+        this.userCode = ProjectConfigManager.getInstance().getProperty("tps.txn.login.user_code");
+        this.password = ProjectConfigManager.getInstance().getProperty("tps.txn.login.password");
+    }
 
     @Override
     public void service(Stdp10ProcessorRequest request, Stdp10ProcessorResponse response) throws ProcessorException, IOException {
@@ -103,12 +126,14 @@ public abstract class AbstractTxnProcessor extends Stdp10Processor {
             byte[] rcvTpsBuf = client.call(sendTpsBuf);
             String respMsg = new String(rcvTpsBuf, "GBK");
 
-            MsgCommHeader respCommHead = new MsgCommHeader(respMsg);
+            context.setTpsToaXml(respMsg);
+
+/*            MsgCommHeader respCommHead = new MsgCommHeader(respMsg);
             context.setTpsToaHeader(respCommHead);
             context.setTpsToaTxnCode(respCommHead.getDataType());
             String respXml = respMsg.substring(respCommHead.getMsgHeaderLength());
-            context.setTpsToaXml(respXml);
-            logger.info("TPS Response:[HEAD=]" + context.getTpsToaHeader() + "\n\t[XML=]" + context.getTpsToaXml());
+            context.setTpsToaXml(respXml);*/
+            logger.info("TPS Response:[HEAD=]" + respMsg);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("编码错误", e);
         }
@@ -116,11 +141,11 @@ public abstract class AbstractTxnProcessor extends Stdp10Processor {
 
     //组第三方服务器 通讯报文头
     private String assembleTpsCommmsgHeader(TpsContext context, int bizMsgLen) {
-        String authoCode = "authorization";
+        String authoCode = this.authCode;
 
         MsgCommHeader msgCommHeader = new MsgCommHeader();
-        msgCommHeader.setSenderCode("111");
-        msgCommHeader.setRecverCode("222");
+        msgCommHeader.setSenderCode(this.src);
+        msgCommHeader.setRecverCode(this.des);
         msgCommHeader.setDataType(context.getTpsTiaTxnCode());
         msgCommHeader.setSendTime(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
         msgCommHeader.setSignFlag("0");
@@ -157,5 +182,17 @@ public abstract class AbstractTxnProcessor extends Stdp10Processor {
             property = "未定义对应的错误信息(错误码:" + rtnCode + ")";
         }
         return property;
+    }
+    protected String substrEnd(String content, String startStr, String endStr) {
+        int length = endStr.length();
+        int start = content.indexOf(startStr);
+        int end = content.indexOf(endStr)+length;
+        return content.substring(start, end);
+    }
+    protected String substr(String content, String startStr, String endStr) {
+        int length = startStr.length();
+        int start = content.indexOf(startStr) + length;
+        int end = content.indexOf(endStr);
+        return content.substring(start, end);
     }
 }
